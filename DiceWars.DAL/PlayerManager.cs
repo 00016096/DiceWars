@@ -9,8 +9,5 @@ namespace DiceWars.DAL
     internal class PlayerManager
     {
         //
-        //
-
-        //for fuck's sake
     }
 }

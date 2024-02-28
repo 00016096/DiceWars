@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DiceWars
 {
-    internal class Clash
+    public class Clash
     {
         public int Id { get; set; }
         public Player Player1 { get; set; }

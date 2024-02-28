@@ -8,6 +8,6 @@ namespace DiceWars.DAL
 {
     internal class PlayerManager
     {
-
+        //
     }
 }

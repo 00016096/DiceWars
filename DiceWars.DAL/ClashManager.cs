@@ -5,27 +5,26 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Data;
 using System.Data.SQLite;
-using System.Security.Cryptography.X509Certificates;
 
 
 namespace DiceWars.DAL
 {
-    public class PlayerManager
+    public class ClashManager
     {
-        public void Create(Player p)
+        public void Create(Clash c)
         {
             using var connection = new SQLiteConnection();
             try
             {
-                
-                var sql = $"INSERT INTO pl_player_16096 (pl_name_16096" +
-                    $", pl_is_pvp_enabled_16096" +
-                    $", pl_last_game_date_16096" +
-                    $", pl_score_16096) " +
-                    $"VALUES ('{p.Name}'" +
-                    $", {p.IsPvPEnabled}" +
-                    $", {p.LastGameDate}" +
-                    $", {p.Score})";
+
+                var sql = $"INSERT INTO cl_clash_16096 cl_player1_16096" +
+                    $", cl_player2_16096" +
+                    $", cl_date_16096" +
+                    $", cl_outcome_16096) " +
+                    $"VALUES ('{c.Player1}'" +
+                    $", {c.Player2}" +
+                    $", {c.Date}" +
+                    $", {c.Outcome})";
 
                 using var command = new SQLiteCommand(sql, connection);
                 connection.Open();
@@ -42,17 +41,17 @@ namespace DiceWars.DAL
             }
         }
 
-        public void Update(Player p)
+        public void Update(Clash c)
         {
             using var connection = new SQLiteConnection();
             try
             {
-                var sql = $"UPDATE pl_player_16096" +
-                    $" SET pl_name_16096 = {p.Name}" +
-                    $", pl_is_pvp_enabled_16096 = {p.IsPvPEnabled}" +
-                    $", pl_last_game_date_16096 = {p.LastGameDate}" +
-                    $", pl_score_16096 = {p.Score})" +
-                    $"WHERE Id = {p.Id}";
+                var sql = $"UPDATE cl_clash_16096" +
+                    $" SET cl_player1_16096 = {c.Player1}" +
+                    $", cl_player2_16096 = {c.Player2}" +
+                    $", cl_date_16096 = {c.Date}" +
+                    $", cl_outcome_16096 = {c.Outcome})" +
+                    $"Where Id = {c.Id}";
 
                 using var command = new SQLiteCommand(sql, connection);
                 connection.Open();
@@ -74,7 +73,7 @@ namespace DiceWars.DAL
             using var connection = new SQLiteConnection();
             try
             {
-                var sql = $"DELETE FROM pl_player_16096 WHERE Id = {id}";
+                var sql = $"DELETE FROM cl_clash_16096 WHERE Id = {id}";
                 using var command = new SQLiteCommand(sql, connection);
                 connection.Open();
                 command.ExecuteNonQuery();
@@ -92,29 +91,28 @@ namespace DiceWars.DAL
 
 
 
-        public List<Player> GetAll()
+        public List<Clash> GetAll()
         {
-            
-            var allPlayers = new PlayerManager().GetAll().ToDictionary(t => t.Id, t => t);
+            var allClashes = new ClashManager().GetAll().ToDictionary(t => t.Id, t => t);
             using var connection = new SQLiteConnection();
             var result = new List<Player>();
             try
             {
-                var sql = "SELECT pl_id_16096" +
-                    ",pl_name_16096," +
-                    "pl_is_pvp_enabled_16096" +
-                    ",pl_last_game_date_16096" +
-                    ",pl_score_16096 " +
-                    "FROM pl_player_16096";
+                var sql = "SELECT cl_id_16096" +
+                    ",cl_player1_16096" +
+                    ",cl_player2_16096" +
+                    ",cl_date_16096" +
+                    ",cl_outcome_16096 " +
+                    "FROM cl_clash_16096";
                 using var command = new SQLiteCommand(sql, connection);
                 connection.Open();
                 using var reader = command.ExecuteReader();
                 while (reader.Read())
                 {
-                    var p = new Player
+                    var c = new Clash
                     {
                         Id = Convert.ToInt32(reader.GetValue(0)),
-                        Name = Convert.ToString(reader.GetValue(1)),
+                        Player1 = allPlayers[Convert.ToInt32(reader.GetValue(1))],
                         IsPvPEnabled = Convert.ToInt32(reader.GetValue(2)),
                         LastGameDate = new DateTime(Convert.ToInt64(reader.GetValue(3))),
                         Score = Convert.ToInt32(reader.GetValue(4))
@@ -141,12 +139,12 @@ namespace DiceWars.DAL
             using var connection = new SQLiteConnection();
             try
             {
-                var sql = "SELECT pl_id_16096" +
-                    ",pl_name_16096," +
-                    "pl_is_pvp_enabled_16096" +
-                    ",pl_last_game_date_16096" +
-                    ",pl_score_16096 " +
-                    "FROM pl_player_16096" +
+                var sql = "SELECT cl_id_16096" +
+                    ",cl_player1_16096," +
+                    "cl_player2_16096" +
+                    ",cl_date_16096" +
+                    ",cl_outcome_16096 " +
+                    "FROM cl_clash_16096" +
                     $"WHERE Id = {id}";
                 using var command = new SQLiteCommand(sql, connection);
                 connection.Open();

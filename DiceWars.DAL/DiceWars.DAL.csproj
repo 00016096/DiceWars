@@ -3,11 +3,9 @@
   <PropertyGroup>
     <TargetFramework>net6.0-windows</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
-	  <>UseWindowsForms></UseWindowsForms>true
+    <UseWindowsForms>true</UseWindowsForms>
     <Nullable>enable</Nullable>
-	  <>UseWindowsForms 
-		  ></UseWindowsForms>true	  <>UseWindowsForms></UseWindowsForms>true
-true  </PropertyGroup>
+ </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="System.Data.SQLite" Version="1.0.118" />

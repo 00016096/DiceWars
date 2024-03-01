@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System.Data;
 using System.Data.SQLite;
 using System.Security.Cryptography.X509Certificates;
-
+using DiceWars;
 
 namespace DiceWars.DAL
 {

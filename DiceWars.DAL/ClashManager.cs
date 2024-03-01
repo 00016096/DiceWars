@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 using System.Data;
 using System.Data.SQLite;
 
-
 namespace DiceWars.DAL
 {
     public class ClashManager
@@ -93,9 +92,8 @@ namespace DiceWars.DAL
 
         public List<Clash> GetAll()
         {
-            var allClashes = new ClashManager().GetAll().ToDictionary(t => t.Id, t => t);
             using var connection = new SQLiteConnection();
-            var result = new List<Player>();
+            var result = new List<Clash>();
             try
             {
                 var sql = "SELECT cl_id_16096" +
@@ -112,13 +110,13 @@ namespace DiceWars.DAL
                     var c = new Clash
                     {
                         Id = Convert.ToInt32(reader.GetValue(0)),
-                        Player1 = allPlayers[Convert.ToInt32(reader.GetValue(1))],
-                        IsPvPEnabled = Convert.ToInt32(reader.GetValue(2)),
-                        LastGameDate = new DateTime(Convert.ToInt64(reader.GetValue(3))),
-                        Score = Convert.ToInt32(reader.GetValue(4))
+                        Player1 = new PlayerManager().GetById(Convert.ToInt32(reader.GetValue(1))),
+                        Player2 = new PlayerManager().GetById(Convert.ToInt32(reader.GetValue(2))),
+                        Date = new DateTime(Convert.ToInt64(reader.GetValue(3))),
+                        Outcome = Convert.ToInt32(reader.GetValue(4))
 
                     };
-                    result.Add(p);
+                    result.Add(c);
                 }
             }
             catch (Exception ex)
@@ -134,7 +132,7 @@ namespace DiceWars.DAL
             return result;
         }
 
-        public Player GetById(int id)
+        public Clash GetById(int id)
         {
             using var connection = new SQLiteConnection();
             try
@@ -151,13 +149,13 @@ namespace DiceWars.DAL
                 using var reader = command.ExecuteReader();
                 if (reader.Read())
                 {
-                    return new Player
+                    return new Clash
                     {
                         Id = Convert.ToInt32(reader.GetValue(0)),
-                        Name = Convert.ToString(reader.GetValue(1)),
-                        IsPvPEnabled = Convert.ToInt32(reader.GetValue(2)),
-                        LastGameDate = new DateTime(Convert.ToInt64(reader.GetValue(3))),
-                        Score = Convert.ToInt32(reader.GetValue(4))
+                        Player1 = new PlayerManager().GetById(Convert.ToInt32(reader.GetValue(1))),
+                        Player2 = new PlayerManager().GetById(Convert.ToInt32(reader.GetValue(2))),
+                        Date = new DateTime(Convert.ToInt64(reader.GetValue(3))),
+                        Outcome = Convert.ToInt32(reader.GetValue(4))
                     };
                 }
             }

@@ -7,6 +7,7 @@ using System.Data;
 using System.Data.SQLite;
 using System.Security.Cryptography.X509Certificates;
 using DiceWars;
+using System.Windows.Forms;
 
 namespace DiceWars.DAL
 {

@@ -5,6 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Data;
 using System.Data.SQLite;
+using System.Windows.Forms;
+
 
 namespace DiceWars.DAL
 {
@@ -39,55 +41,6 @@ namespace DiceWars.DAL
                     connection.Close();
             }
         }
-
-        public void Update(Clash c)
-        {
-            using var connection = new SQLiteConnection();
-            try
-            {
-                var sql = $"UPDATE cl_clash_16096" +
-                    $" SET cl_player1_16096 = {c.Player1}" +
-                    $", cl_player2_16096 = {c.Player2}" +
-                    $", cl_date_16096 = {c.Date}" +
-                    $", cl_outcome_16096 = {c.Outcome})" +
-                    $"Where Id = {c.Id}";
-
-                using var command = new SQLiteCommand(sql, connection);
-                connection.Open();
-                command.ExecuteNonQuery();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-            finally
-            {
-                if (connection.State != ConnectionState.Closed)
-                    connection.Close();
-            }
-        }
-        //
-        public void Delete(int id)
-        {
-            using var connection = new SQLiteConnection();
-            try
-            {
-                var sql = $"DELETE FROM cl_clash_16096 WHERE Id = {id}";
-                using var command = new SQLiteCommand(sql, connection);
-                connection.Open();
-                command.ExecuteNonQuery();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-            finally
-            {
-                if (connection.State != ConnectionState.Closed)
-                    connection.Close();
-            }
-        }
-
 
 
         public List<Clash> GetAll()

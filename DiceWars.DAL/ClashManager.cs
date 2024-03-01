@@ -66,7 +66,7 @@ namespace DiceWars.DAL
                     connection.Close();
             }
         }
-
+        //
         public void Delete(int id)
         {
             using var connection = new SQLiteConnection();

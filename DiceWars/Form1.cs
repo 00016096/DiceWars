@@ -18,6 +18,8 @@ namespace DiceWars
             var player = new Player();
             player.Score = 0;
             player.LastGameDate = new DateTime(2000, 01, 01);
+
+            MessageBox.Show($"Default date is {player.LastGameDate}, and default score is {player.Score}");
         }
     }
 }

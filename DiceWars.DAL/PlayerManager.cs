@@ -11,7 +11,7 @@ using System.Windows.Forms;
 
 namespace DiceWars.DAL
 {
-    public class PlayerManager : DbManager
+    public partial class PlayerManager : DbManager
     {
         public void Create(Player p)
         {

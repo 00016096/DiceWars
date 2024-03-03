@@ -17,8 +17,10 @@ namespace DiceWars.DAL
                     var players = GetAll();
                     players.Sort(new ByNameComparer());
                     return players;
-                case ByAttribute.Score:
+                case ByAttribute.ascScore:
                     return GetAll().OrderBy(a => a.Score).ToList();
+                case ByAttribute.descScore:
+                    return GetAll().OrderByDescending(a => a.Score).ToList();
             }
 
             return null;
@@ -31,6 +33,8 @@ namespace DiceWars.DAL
                 return string.Compare(x.Name, y.Name);
             }
         }
+
+
 
 
         public List<Player> Search(ByAttribute attribute, string searchTerm)

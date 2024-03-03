@@ -33,5 +33,11 @@ namespace DiceWars
         public int IsPvPEnabled { get; set; }
         public DateTime LastGameDate { get; set; }
         public int Score { get; set; }
+
+        public override string ToString()
+        {
+            return Name;
+        }
+
     }
 }

@@ -9,6 +9,7 @@ namespace DiceWars.DAL
     public enum ByAttribute
     {
         Name,
-        Score
+        descScore,
+        ascScore
     }
 }

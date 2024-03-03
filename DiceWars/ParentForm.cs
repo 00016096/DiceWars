@@ -36,9 +36,7 @@ namespace DiceWars
 
         private void allPlayersToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var AllPlayersForm = new AllPlayers();
-            AllPlayersForm.MdiParent = this;
-            AllPlayersForm.Show();
+            GameForms.GetForm<AllPlayers>().Show();
         }
     }
 }

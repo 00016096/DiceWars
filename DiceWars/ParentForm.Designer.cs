@@ -28,7 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
-            menuStrip1 = new MenuStrip();
+            components = new System.ComponentModel.Container();
+            playerBindingSource = new BindingSource(components);
+            playerBindingSource1 = new BindingSource(components);
             fileToolStripMenuItem = new ToolStripMenuItem();
             exitToolStripMenuItem = new ToolStripMenuItem();
             playersToolStripMenuItem = new ToolStripMenuItem();
@@ -36,21 +38,20 @@
             newPlayerToolStripMenuItem = new ToolStripMenuItem();
             clashToolStripMenuItem = new ToolStripMenuItem();
             allClahesToolStripMenuItem = new ToolStripMenuItem();
-            newClashNewGameToolStripMenuItem = new ToolStripMenuItem();
-            helpToolStripMenuItem = new ToolStripMenuItem();
-            aboutToolStripMenuItem = new ToolStripMenuItem();
+            menuStrip1 = new MenuStrip();
+            newGameToolStripMenuItem = new ToolStripMenuItem();
+            ((System.ComponentModel.ISupportInitialize)playerBindingSource).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)playerBindingSource1).BeginInit();
             menuStrip1.SuspendLayout();
             SuspendLayout();
             // 
-            // menuStrip1
+            // playerBindingSource
             // 
-            menuStrip1.ImageScalingSize = new Size(20, 20);
-            menuStrip1.Items.AddRange(new ToolStripItem[] { fileToolStripMenuItem, playersToolStripMenuItem, clashToolStripMenuItem, helpToolStripMenuItem });
-            menuStrip1.Location = new Point(0, 0);
-            menuStrip1.Name = "menuStrip1";
-            menuStrip1.Size = new Size(800, 28);
-            menuStrip1.TabIndex = 1;
-            menuStrip1.Text = "menuStrip1";
+            playerBindingSource.DataSource = typeof(Player);
+            // 
+            // playerBindingSource1
+            // 
+            playerBindingSource1.DataSource = typeof(Player);
             // 
             // fileToolStripMenuItem
             // 
@@ -76,20 +77,20 @@
             // allPlayersToolStripMenuItem
             // 
             allPlayersToolStripMenuItem.Name = "allPlayersToolStripMenuItem";
-            allPlayersToolStripMenuItem.Size = new Size(224, 26);
+            allPlayersToolStripMenuItem.Size = new Size(166, 26);
             allPlayersToolStripMenuItem.Text = "All players";
             allPlayersToolStripMenuItem.Click += allPlayersToolStripMenuItem_Click;
             // 
             // newPlayerToolStripMenuItem
             // 
             newPlayerToolStripMenuItem.Name = "newPlayerToolStripMenuItem";
-            newPlayerToolStripMenuItem.Size = new Size(224, 26);
+            newPlayerToolStripMenuItem.Size = new Size(166, 26);
             newPlayerToolStripMenuItem.Text = "New Player";
             newPlayerToolStripMenuItem.Click += newPlayerToolStripMenuItem_Click;
             // 
             // clashToolStripMenuItem
             // 
-            clashToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { allClahesToolStripMenuItem, newClashNewGameToolStripMenuItem });
+            clashToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { allClahesToolStripMenuItem, newGameToolStripMenuItem });
             clashToolStripMenuItem.Name = "clashToolStripMenuItem";
             clashToolStripMenuItem.Size = new Size(62, 24);
             clashToolStripMenuItem.Text = "Game";
@@ -97,34 +98,32 @@
             // allClahesToolStripMenuItem
             // 
             allClahesToolStripMenuItem.Name = "allClahesToolStripMenuItem";
-            allClahesToolStripMenuItem.Size = new Size(248, 26);
+            allClahesToolStripMenuItem.Size = new Size(185, 26);
             allClahesToolStripMenuItem.Text = "Games history";
             allClahesToolStripMenuItem.Click += allClahesToolStripMenuItem_Click;
             // 
-            // newClashNewGameToolStripMenuItem
+            // menuStrip1
             // 
-            newClashNewGameToolStripMenuItem.Name = "newClashNewGameToolStripMenuItem";
-            newClashNewGameToolStripMenuItem.Size = new Size(248, 26);
-            newClashNewGameToolStripMenuItem.Text = "New Clash (New Game)";
+            menuStrip1.ImageScalingSize = new Size(20, 20);
+            menuStrip1.Items.AddRange(new ToolStripItem[] { fileToolStripMenuItem, playersToolStripMenuItem, clashToolStripMenuItem });
+            menuStrip1.Location = new Point(0, 0);
+            menuStrip1.Name = "menuStrip1";
+            menuStrip1.Size = new Size(1273, 28);
+            menuStrip1.TabIndex = 1;
+            menuStrip1.Text = "menuStrip1";
             // 
-            // helpToolStripMenuItem
+            // newGameToolStripMenuItem
             // 
-            helpToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { aboutToolStripMenuItem });
-            helpToolStripMenuItem.Name = "helpToolStripMenuItem";
-            helpToolStripMenuItem.Size = new Size(55, 24);
-            helpToolStripMenuItem.Text = "Help";
-            // 
-            // aboutToolStripMenuItem
-            // 
-            aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            aboutToolStripMenuItem.Size = new Size(133, 26);
-            aboutToolStripMenuItem.Text = "About";
+            newGameToolStripMenuItem.Name = "newGameToolStripMenuItem";
+            newGameToolStripMenuItem.Size = new Size(224, 26);
+            newGameToolStripMenuItem.Text = "New Game";
+            newGameToolStripMenuItem.Click += newGameToolStripMenuItem_Click;
             // 
             // ParentForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 450);
+            ClientSize = new Size(1273, 696);
             Controls.Add(menuStrip1);
             IsMdiContainer = true;
             MainMenuStrip = menuStrip1;
@@ -132,6 +131,8 @@
             Text = "Dice Wars";
             WindowState = FormWindowState.Maximized;
             Load += ParentForm_Load;
+            ((System.ComponentModel.ISupportInitialize)playerBindingSource).EndInit();
+            ((System.ComponentModel.ISupportInitialize)playerBindingSource1).EndInit();
             menuStrip1.ResumeLayout(false);
             menuStrip1.PerformLayout();
             ResumeLayout(false);
@@ -140,16 +141,16 @@
 
         #endregion
 
-        private MenuStrip menuStrip1;
+        private BindingSource playerBindingSource;
+        private BindingSource playerBindingSource1;
         private ToolStripMenuItem fileToolStripMenuItem;
         private ToolStripMenuItem exitToolStripMenuItem;
         private ToolStripMenuItem playersToolStripMenuItem;
-        private ToolStripMenuItem clashToolStripMenuItem;
-        private ToolStripMenuItem helpToolStripMenuItem;
         private ToolStripMenuItem allPlayersToolStripMenuItem;
         private ToolStripMenuItem newPlayerToolStripMenuItem;
+        private ToolStripMenuItem clashToolStripMenuItem;
         private ToolStripMenuItem allClahesToolStripMenuItem;
-        private ToolStripMenuItem newClashNewGameToolStripMenuItem;
-        private ToolStripMenuItem aboutToolStripMenuItem;
+        private MenuStrip menuStrip1;
+        private ToolStripMenuItem newGameToolStripMenuItem;
     }
 }

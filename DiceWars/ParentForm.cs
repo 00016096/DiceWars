@@ -20,8 +20,7 @@ namespace DiceWars
 
         private void ParentForm_Load(object sender, EventArgs e)
         {
-            var manager = new PlayerManager();
-            MessageBox.Show(manager.GetAll().Count.ToString());
+          
         }
 
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
@@ -42,6 +41,11 @@ namespace DiceWars
         private void newPlayerToolStripMenuItem_Click(object sender, EventArgs e)
         {
             new EditingPlayers().CreateNewPlayer();
+        }
+
+        private void newGameToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            GameForms.GetForm<Game>().Show();
         }
     }
 }

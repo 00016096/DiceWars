@@ -4,12 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DiceWars.DAL
+namespace DiceWars
 {
-    public enum ByAttribute
+    public enum FormMode
     {
-        Name,
-        Champions,
-        Losers
+        CreateNew,
+        Update
     }
 }

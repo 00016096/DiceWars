@@ -85,6 +85,7 @@
             newPlayerToolStripMenuItem.Name = "newPlayerToolStripMenuItem";
             newPlayerToolStripMenuItem.Size = new Size(224, 26);
             newPlayerToolStripMenuItem.Text = "New Player";
+            newPlayerToolStripMenuItem.Click += newPlayerToolStripMenuItem_Click;
             // 
             // clashToolStripMenuItem
             // 

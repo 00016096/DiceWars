@@ -45,9 +45,9 @@ namespace DiceWars
                 if (cbxSort.SelectedIndex == 0)
                     selectedAttribute = ByAttribute.Name;
                 else if (cbxSort.SelectedIndex == 1)
-                    selectedAttribute = ByAttribute.ascScore;
+                    selectedAttribute = ByAttribute.Champions;
                 else if (cbxSort.SelectedIndex == 2)
-                    selectedAttribute = ByAttribute.descScore;
+                    selectedAttribute = ByAttribute.Losers;
 
                 dgv.DataSource = new PlayerManager().Sort(selectedAttribute);
             }
@@ -61,6 +61,11 @@ namespace DiceWars
             {
                 dgv.DataSource = new PlayerManager().Search(ByAttribute.Name, tbxSearch.Text);
             }
+
+        }
+
+        private void btnAdd_Click(object sender, EventArgs e)
+        {
 
         }
     }

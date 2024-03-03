@@ -31,12 +31,17 @@ namespace DiceWars
 
         private void allClahesToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            GameForms.GetForm<GamesHistory>().Show();
         }
 
         private void allPlayersToolStripMenuItem_Click(object sender, EventArgs e)
         {
             GameForms.GetForm<AllPlayers>().Show();
+        }
+
+        private void newPlayerToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            new EditingPlayers().CreateNewPlayer();
         }
     }
 }

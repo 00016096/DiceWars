@@ -123,7 +123,7 @@
             // 
             cbxSort.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             cbxSort.FormattingEnabled = true;
-            cbxSort.Items.AddRange(new object[] { "Name", "Score (ascending)", "Score (descending)" });
+            cbxSort.Items.AddRange(new object[] { "Name", "Champions", "Losers" });
             cbxSort.Location = new Point(12, 357);
             cbxSort.Name = "cbxSort";
             cbxSort.Size = new Size(296, 28);
@@ -168,6 +168,7 @@
             btnAdd.TabIndex = 2;
             btnAdd.Text = "Add";
             btnAdd.UseVisualStyleBackColor = true;
+            btnAdd.Click += btnAdd_Click;
             // 
             // btnEdit
             // 

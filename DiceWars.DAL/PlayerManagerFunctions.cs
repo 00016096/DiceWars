@@ -17,10 +17,10 @@ namespace DiceWars.DAL
                     var players = GetAll();
                     players.Sort(new ByNameComparer());
                     return players;
-                case ByAttribute.ascScore:
-                    return GetAll().OrderBy(a => a.Score).ToList();
-                case ByAttribute.descScore:
-                    return GetAll().OrderByDescending(a => a.Score).ToList();
+                case ByAttribute.Champions:
+                    return GetAll().Where(a => a.Score > 0).ToList();
+                case ByAttribute.Losers:
+                    return GetAll().Where(a => a.Score <= 0).ToList();
             }
 
             return null;

@@ -12,4 +12,10 @@
     <ProjectReference Include="..\DiceWars.DAL\DiceWars.DAL.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="DiceWars.db">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>

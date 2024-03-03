@@ -10,11 +10,11 @@ using System.Windows.Forms;
 
 namespace DiceWars.DAL
 {
-    public class ClashManager
+    public class ClashManager : DbManager
     {
         public void Create(Clash c)
         {
-            using var connection = new SQLiteConnection();
+            using var connection = Connection;
             try
             {
 
@@ -45,7 +45,8 @@ namespace DiceWars.DAL
 
         public List<Clash> GetAll()
         {
-            using var connection = new SQLiteConnection();
+            var allPlayers = new PlayerManager().GetAll().ToDictionary(t => t.Id, t => t);
+            using var connection = Connection;
             var result = new List<Clash>();
             try
             {
@@ -63,8 +64,8 @@ namespace DiceWars.DAL
                     var c = new Clash
                     {
                         Id = Convert.ToInt32(reader.GetValue(0)),
-                        Player1 = new PlayerManager().GetById(Convert.ToInt32(reader.GetValue(1))),
-                        Player2 = new PlayerManager().GetById(Convert.ToInt32(reader.GetValue(2))),
+                        Player1 = allPlayers[Convert.ToInt32(reader.GetValue(1))],
+                        Player2 = allPlayers[Convert.ToInt32(reader.GetValue(2))],
                         Date = new DateTime(Convert.ToInt64(reader.GetValue(3))),
                         Outcome = Convert.ToInt32(reader.GetValue(4))
 
@@ -87,7 +88,7 @@ namespace DiceWars.DAL
 
         public Clash GetById(int id)
         {
-            using var connection = new SQLiteConnection();
+            using var connection = Connection;
             try
             {
                 var sql = "SELECT cl_id_16096" +

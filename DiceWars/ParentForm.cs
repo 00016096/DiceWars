@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DiceWars.DAL;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -19,7 +20,8 @@ namespace DiceWars
 
         private void ParentForm_Load(object sender, EventArgs e)
         {
-
+            var manager = new PlayerManager();
+            MessageBox.Show(manager.GetAll().Count.ToString());
         }
 
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)

@@ -11,11 +11,11 @@ using System.Windows.Forms;
 
 namespace DiceWars.DAL
 {
-    public class PlayerManager
+    public class PlayerManager : DbManager
     {
         public void Create(Player p)
         {
-            using var connection = new SQLiteConnection();
+            using var connection = Connection;
             try
             {
                 
@@ -45,7 +45,7 @@ namespace DiceWars.DAL
 
         public void Update(Player p)
         {
-            using var connection = new SQLiteConnection();
+            using var connection = Connection;
             try
             {
                 var sql = $"UPDATE pl_player_16096" +
@@ -72,7 +72,7 @@ namespace DiceWars.DAL
 
         public void Delete(int id)
         {
-            using var connection = new SQLiteConnection();
+            using var connection = Connection;
             try
             {
                 var sql = $"DELETE FROM pl_player_16096 WHERE Id = {id}";
@@ -96,8 +96,7 @@ namespace DiceWars.DAL
         public List<Player> GetAll()
         {
             
-            var allPlayers = new PlayerManager().GetAll().ToDictionary(t => t.Id, t => t);
-            using var connection = new SQLiteConnection();
+            using var connection = Connection;
             var result = new List<Player>();
             try
             {
@@ -139,7 +138,7 @@ namespace DiceWars.DAL
 
         public Player GetById(int id)
         {
-            using var connection = new SQLiteConnection();
+            using var connection = Connection;
             try
             {
                 var sql = "SELECT pl_id_16096" +

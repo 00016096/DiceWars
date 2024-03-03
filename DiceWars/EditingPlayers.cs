@@ -28,7 +28,7 @@ namespace DiceWars
         public void CreateNewPlayer()
         {
             Mode = FormMode.CreateNew;
-            Player = new Player();
+            Player = new Player(); 
             InitializeControls();
             MdiParent = GameForms.GetForm<ParentForm>();
             Show();

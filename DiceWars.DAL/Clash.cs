@@ -19,10 +19,6 @@ namespace DiceWars
         {
             get
             {
-                if (player1 == Player2)
-                {
-                    throw new Exception("Please, choose different players");
-                }
                 return player1;
             }
 
@@ -40,10 +36,6 @@ namespace DiceWars
 
             set
             {
-                if (player2 == Player1)
-                {
-                    throw new Exception("Please, choose different players");
-                }
                 player2 = value;
             }
         }

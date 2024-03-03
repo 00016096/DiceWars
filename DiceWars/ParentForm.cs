@@ -20,7 +20,7 @@ namespace DiceWars
 
         private void ParentForm_Load(object sender, EventArgs e)
         {
-          
+         
         }
 
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)

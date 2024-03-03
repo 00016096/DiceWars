@@ -18,13 +18,13 @@ namespace DiceWars.DAL
             try
             {
 
-                var sql = $"INSERT INTO cl_clash_16096 cl_player1_16096" +
+                var sql = $"INSERT INTO cl_clash_16096 (cl_player1_16096" +
                     $", cl_player2_16096" +
                     $", cl_date_16096" +
                     $", cl_outcome_16096) " +
                     $"VALUES ('{c.Player1}'" +
                     $", {c.Player2}" +
-                    $", {c.Date}" +
+                    $", {DateTime.Today}" +
                     $", {c.Outcome})";
 
                 using var command = new SQLiteCommand(sql, connection);

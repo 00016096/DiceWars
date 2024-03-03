@@ -1,4 +1,5 @@
 ﻿using DiceWars.DAL;
+using Microsoft.VisualBasic.Devices;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -24,7 +25,7 @@ namespace DiceWars
             LoadData();
         }
 
-        private void LoadData()
+        public void LoadData()
         {
             dgv.DataSource = new PlayerManager().GetAll();
 
@@ -66,7 +67,32 @@ namespace DiceWars
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
+            new EditingPlayers().CreateNewPlayer();
+        }
 
+        private void btnEdit_Click(object sender, EventArgs e)
+        {
+            if (dgv.SelectedRows.Count == 0)
+                MessageBox.Show("Please select a course");
+            else
+            {
+                var c = (Player)dgv.SelectedRows[0].DataBoundItem;
+                new EditingPlayers().UpdatePlayer(c);
+            }
+
+        }
+
+        private void btnDelete_Click(object sender, EventArgs e)
+        {
+            if (dgv.SelectedRows.Count == 0)
+                MessageBox.Show("Please select a course");
+            else
+            {
+                    var c = (Player)dgv.SelectedRows[0].DataBoundItem;
+                    new PlayerManager().Delete(c.Id);
+                    LoadData();
+               
+            }
         }
     }
 }

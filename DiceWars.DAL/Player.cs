@@ -30,7 +30,7 @@ namespace DiceWars
                 name = value;
             }
         }
-        public int IsPvPEnabled { get; set; }
+        public bool IsPvPEnabled { get; set; }
         public DateTime LastGameDate { get; set; }
         public int Score { get; set; }
 

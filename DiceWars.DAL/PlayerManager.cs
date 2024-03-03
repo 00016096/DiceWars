@@ -22,11 +22,11 @@ namespace DiceWars.DAL
                 var sql = $"INSERT INTO pl_player_16096 (pl_name_16096" +
                     $", pl_is_pvp_enabled_16096" +
                     $", pl_last_game_date_16096" +
-                    $", pl_score_16096) " +
-                    $"VALUES ('{p.Name}'" +
-                    $", {p.IsPvPEnabled}" +
-                    $", {p.LastGameDate}" +
-                    $", {p.Score})";
+                    $", pl_score_16096)" +
+                    $" VALUES ('{p.Name}'" +
+                    $", '{Convert.ToInt32(p.IsPvPEnabled)}'" +
+                    $", '{new DateTime(2000, 01, 01).Ticks}'" +
+                    $", '{0}')";
 
                 using var command = new SQLiteCommand(sql, connection);
                 connection.Open();
@@ -49,11 +49,9 @@ namespace DiceWars.DAL
             try
             {
                 var sql = $"UPDATE pl_player_16096" +
-                    $" SET pl_name_16096 = {p.Name}" +
-                    $", pl_is_pvp_enabled_16096 = {p.IsPvPEnabled}" +
-                    $", pl_last_game_date_16096 = {p.LastGameDate}" +
-                    $", pl_score_16096 = {p.Score})" +
-                    $"WHERE Id = {p.Id}";
+                    $" SET pl_name_16096 = '{p.Name}'" +
+                    $", pl_is_pvp_enabled_16096 = '{Convert.ToInt32(p.IsPvPEnabled)}'" +
+                    $" WHERE pl_id_16096 = '{p.Id}'";
 
                 using var command = new SQLiteCommand(sql, connection);
                 connection.Open();
@@ -75,7 +73,7 @@ namespace DiceWars.DAL
             using var connection = Connection;
             try
             {
-                var sql = $"DELETE FROM pl_player_16096 WHERE Id = {id}";
+                var sql = $"DELETE FROM pl_player_16096 WHERE pl_id_16096 = {id}";
                 using var command = new SQLiteCommand(sql, connection);
                 connection.Open();
                 command.ExecuteNonQuery();
@@ -115,7 +113,7 @@ namespace DiceWars.DAL
                     {
                         Id = Convert.ToInt32(reader.GetValue(0)),
                         Name = Convert.ToString(reader.GetValue(1)),
-                        IsPvPEnabled = Convert.ToInt32(reader.GetValue(2)),
+                        IsPvPEnabled = Convert.ToBoolean(reader.GetValue(2)),
                         LastGameDate = new DateTime(Convert.ToInt64(reader.GetValue(3))),
                         Score = Convert.ToInt32(reader.GetValue(4))
 
@@ -157,7 +155,7 @@ namespace DiceWars.DAL
                     {
                         Id = Convert.ToInt32(reader.GetValue(0)),
                         Name = Convert.ToString(reader.GetValue(1)),
-                        IsPvPEnabled = Convert.ToInt32(reader.GetValue(2)),
+                        IsPvPEnabled = Convert.ToBoolean(reader.GetValue(2)),
                         LastGameDate = new DateTime(Convert.ToInt64(reader.GetValue(3))),
                         Score = Convert.ToInt32(reader.GetValue(4))
                     };

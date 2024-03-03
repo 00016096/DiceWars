@@ -1,4 +1,5 @@
-﻿using Microsoft.VisualBasic.Devices;
+﻿using DiceWars.DAL;
+using Microsoft.VisualBasic.Devices;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -56,7 +57,21 @@ namespace DiceWars
 
         private void btnSave_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Saved!");
+            try
+            {
+                GrabUserInput();
+                var manager = new PlayerManager();
+                if (Mode == FormMode.CreateNew)
+                    manager.Create(Player);
+                else
+                    manager.Update(Player);
+                    GameForms.GetForm<AllPlayers>().LoadData();
+                    Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
 
         private void btnCancel_Click(object sender, EventArgs e)

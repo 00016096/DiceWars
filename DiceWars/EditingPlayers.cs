@@ -1,16 +1,5 @@
 ﻿using DiceWars.DAL;
 using DiceWars.DAL.Entities;
-using Microsoft.VisualBasic.Devices;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Data.Common;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace DiceWars
 {
@@ -29,7 +18,7 @@ namespace DiceWars
         public void CreateNewPlayer()
         {
             Mode = FormMode.CreateNew;
-            Player = new Player(); 
+            Player = new Player();
             InitializeControls();
             MdiParent = GameForms.GetForm<ParentForm>();
             Show();
@@ -57,18 +46,18 @@ namespace DiceWars
             Player.IsPvPEnabled = chbxPvPEnabled.Checked;
         }
 
-        private void btnSave_Click(object sender, EventArgs e)
+        private async void btnSave_Click(object sender, EventArgs e)
         {
             try
             {
                 GrabUserInput();
                 var manager = new PlayerManager();
                 if (Mode == FormMode.CreateNew)
-                    manager.Create(Player);
+                    await manager.CreateAsync(Player);
                 else
-                    manager.Update(Player);
-                    GameForms.GetForm<AllPlayers>().LoadData();
-                    Close();
+                    await manager.UpdateAsync(Player);
+                GameForms.GetForm<AllPlayers>().LoadData();
+                Close();
             }
             catch (Exception ex)
             {

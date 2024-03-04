@@ -16,10 +16,9 @@ public partial class AllPlayers : Form
         LoadData();
     }
 
-    public void LoadData()
+    public async void LoadData()
     {
-        dgv.DataSource = new PlayerManager().GetAll();
-
+        dgv.DataSource = await new PlayerManager().GetAllAsync();
     }
 
     private void btnRefresh_Click(object sender, EventArgs e)
@@ -41,19 +40,20 @@ public partial class AllPlayers : Form
             else if (cbxSort.SelectedIndex == 2)
                 selectedAttribute = ByAttribute.Losers;
 
-            dgv.DataSource = new PlayerManager().Sort(selectedAttribute);
+            dgv.DataSource = new PlayerManager().SortAsync(selectedAttribute);
         }
     }
 
     private void btnSearch_Click(object sender, EventArgs e)
     {
         if (string.IsNullOrWhiteSpace(tbxSearch.Text))
+        {
             MessageBox.Show("Provide the search term");
+        }
         else
         {
-            dgv.DataSource = new PlayerManager().Search(ByAttribute.Name, tbxSearch.Text);
+            dgv.DataSource = new PlayerManager().SearchAsync(ByAttribute.Name, tbxSearch.Text);
         }
-
     }
 
     private void btnAdd_Click(object sender, EventArgs e)
@@ -64,25 +64,31 @@ public partial class AllPlayers : Form
     private void btnEdit_Click(object sender, EventArgs e)
     {
         if (dgv.SelectedRows.Count == 0)
+        {
             MessageBox.Show("Please select a course");
+        }
         else
         {
             var c = (Player)dgv.SelectedRows[0].DataBoundItem;
             new EditingPlayers().UpdatePlayer(c);
         }
-
     }
 
-    private void btnDelete_Click(object sender, EventArgs e)
+    private async void btnDelete_Click(object sender, EventArgs e)
     {
         if (dgv.SelectedRows.Count == 0)
+        {
             MessageBox.Show("Please select a course");
+        }
         else
         {
             var c = (Player)dgv.SelectedRows[0].DataBoundItem;
-            new PlayerManager().Delete(c.Id);
+            await new PlayerManager().DeleteAsync(c.Id);
             LoadData();
-
         }
+    }
+
+    private void dgv_CellContentClick(object sender, DataGridViewCellEventArgs e)
+    {
     }
 }

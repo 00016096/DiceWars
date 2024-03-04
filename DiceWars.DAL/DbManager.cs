@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data.SQLite;
 using System.Linq;
 using System.Text;
@@ -13,7 +14,7 @@ namespace DiceWars.DAL
         {
             get
             {
-                return new SQLiteConnection(Properties.Settings.Default.ConnectionString);
+                return new SQLiteConnection(ConfigurationManager.ConnectionStrings["DiceWars"].ConnectionString);
             }
         }
     }

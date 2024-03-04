@@ -1,30 +1,25 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Cryptography.X509Certificates;
-using System.Text;
-using System.Threading.Tasks;
-using DiceWars.DAL.Entities;
+﻿using DiceWars.DAL.Entities;
 
 namespace DiceWars.DAL
 {
     partial class PlayerManager
     {
-        public List<Player> Sort(ByAttribute attribute)
+        public async Task<List<Player>> SortAsync(ByAttribute attribute)
         {
+            var players = await GetAllAsync();
             switch (attribute)
             {
                 case ByAttribute.Name:
-                    var players = GetAll();
                     players.Sort(new ByNameComparer());
                     return players;
                 case ByAttribute.Champions:
-                    return GetAll().Where(a => a.Score > 0).ToList();
+                    return players.Where(a => a.Score > 0).ToList();
                 case ByAttribute.Losers:
-                    return GetAll().Where(a => a.Score <= 0).ToList();
+                    return players.Where(a => a.Score <= 0).ToList();
+                default:
+                    return [];
             }
 
-            return null;
         }
 
         private class ByNameComparer : IComparer<Player>
@@ -38,15 +33,16 @@ namespace DiceWars.DAL
 
 
 
-        public List<Player> Search(ByAttribute attribute, string searchTerm)
+        public async Task<List<Player>> SearchAsync(ByAttribute attribute, string searchTerm)
         {
             switch (attribute)
             {
                 case ByAttribute.Name:
-                    return GetAll().Where(a => a.Name.ToLower().Contains(searchTerm.ToLower())).ToList();
+                    return (await GetAllAsync()).Where(a => a.Name.Contains(searchTerm, StringComparison.CurrentCultureIgnoreCase)).ToList();
+                default:
+                    return [];
             }
 
-            return null;
         }
     }
 }

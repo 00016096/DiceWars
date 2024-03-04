@@ -2,6 +2,14 @@
 
 public class Player
 {
+    public Player()
+    {
+        
+    }
+    public Player(int id)
+    {
+        Id = id;
+    }
     private string name;
 
     public int Id { get; set; }
@@ -22,7 +30,7 @@ public class Player
         }
     }
     public bool IsPvPEnabled { get; set; }
-    public DateTime LastGameDate { get; set; }
+    public DateTime? LastGameDate { get; set; }
     public int Score { get; set; }
 
     public override string ToString()

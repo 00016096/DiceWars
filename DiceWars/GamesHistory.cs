@@ -1,32 +1,43 @@
 ﻿using DiceWars.DAL;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
+using DiceWars.DAL.Managers;
 
-namespace DiceWars
+namespace DiceWars;
+
+public partial class GamesHistory : Form
 {
-    public partial class GamesHistory : Form
+    private PlayerManager playerManager;
+    public GamesHistory()
     {
-        public GamesHistory()
-        {
-            InitializeComponent();
-        }
+        InitializeComponent();
+        playerManager = new();
+    }
 
-        private void GamesHistory_Load(object sender, EventArgs e)
-        {
-            MdiParent = GameForms.GetForm<ParentForm>();
-            LoadData();
-        }
+    private void GamesHistory_Load(object sender, EventArgs e)
+    {
+        MdiParent = GameForms.GetForm<ParentForm>();
+        LoadData();
+    }
 
-        private void LoadData()
-        {
-            dataGridView1.DataSource = new ClashManager().GetAll();
-        }
+    private async void LoadData()
+    {
+        dataGridView1.DataSource = (await new ClashManager().GetAllAsync())
+            .Select(async x => new
+            {
+                GameId = x.Id,
+                FirstPlayerName = (await playerManager.GetByIdAsync(x.FirstPlayer!.Id))?.Name,
+                SecondPlayerName = (await playerManager.GetByIdAsync(x.SecondPlayer!.Id))?.Name,
+                GameDate = x.Date,
+                Outcome = x.Outcome == 1 ? "First Player won" : x.Outcome == 2 ? "Second Player won" : "Tie"
+            }).Select(x => x.Result).ToList();
+    }
+
+    private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+    {
+
+    }
+
+    private void btnRefresh_Click(object sender, EventArgs e)
+    {
+        LoadData();
     }
 }

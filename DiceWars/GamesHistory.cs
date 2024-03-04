@@ -1,32 +1,22 @@
-﻿using DiceWars.DAL;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
+﻿using DiceWars.DAL.Managers;
 
-namespace DiceWars
+namespace DiceWars;
+
+public partial class GamesHistory : Form
 {
-    public partial class GamesHistory : Form
+    public GamesHistory()
     {
-        public GamesHistory()
-        {
-            InitializeComponent();
-        }
+        InitializeComponent();
+    }
 
-        private void GamesHistory_Load(object sender, EventArgs e)
-        {
-            MdiParent = GameForms.GetForm<ParentForm>();
-            LoadData();
-        }
+    private async void GamesHistory_Load(object sender, EventArgs e)
+    {
+        MdiParent = GameForms.GetForm<ParentForm>();
+        await LoadDataAsync();
+    }
 
-        private void LoadData()
-        {
-            dataGridView1.DataSource = new ClashManager().GetAll();
-        }
+    private async Task LoadDataAsync()
+    {
+        dataGridView1.DataSource = await new ClashManager().GetAllAsync();
     }
 }

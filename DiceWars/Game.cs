@@ -1,20 +1,11 @@
 ﻿using DiceWars.DAL;
 using DiceWars.DAL.Entities;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace DiceWars
 {
     public partial class Game : Form
     {
-        public Clash Clash {  get; set; }
+        public Clash Clash { get; set; }
 
 
         public Game()
@@ -22,28 +13,28 @@ namespace DiceWars
             InitializeComponent();
         }
 
-        private void Game_Load(object sender, EventArgs e)
+        private async void Game_Load(object sender, EventArgs e)
         {
-            cbxPlayer1.DataSource = new PlayerManager().GetAll();
-            cbxPlayer2.DataSource = new PlayerManager().GetAll();
+            cbxPlayer1.DataSource = await new PlayerManager().GetAllAsync();
+            cbxPlayer2.DataSource = await new PlayerManager().GetAllAsync();
         }
 
         private void btnRoll_Click(object sender, EventArgs e)
         {
             if (cbxPlayer1.SelectedIndex != cbxPlayer2.SelectedIndex)
             {
-            Clash = new Clash();
-            Random random = new Random();
-            label3.Text = random.Next(1, 7).ToString();
-            label4.Text = random.Next(1, 7).ToString();
-            label5.Text = random.Next(1, 7).ToString();
-            label6.Text = random.Next(1, 7).ToString();
-            label7.Text = random.Next(1, 7).ToString();
-            label8.Text = random.Next(1, 7).ToString();
-            label9.Text = random.Next(1, 7).ToString();
-            label10.Text = random.Next(1, 7).ToString();
-            label11.Text = random.Next(1, 7).ToString();
-            label12.Text = random.Next(1, 7).ToString();
+                Clash = new Clash();
+                Random random = new Random();
+                label3.Text = random.Next(1, 7).ToString();
+                label4.Text = random.Next(1, 7).ToString();
+                label5.Text = random.Next(1, 7).ToString();
+                label6.Text = random.Next(1, 7).ToString();
+                label7.Text = random.Next(1, 7).ToString();
+                label8.Text = random.Next(1, 7).ToString();
+                label9.Text = random.Next(1, 7).ToString();
+                label10.Text = random.Next(1, 7).ToString();
+                label11.Text = random.Next(1, 7).ToString();
+                label12.Text = random.Next(1, 7).ToString();
 
 
                 var num1 = Convert.ToInt16(label3.Text);
@@ -60,17 +51,19 @@ namespace DiceWars
                 if ((num1 + num2 + num3 + num4 + num5) > (num6 + num7 + num8 + num9 + num10))
                 {
                     label13.Text = "Player 1 wins!";
-                    
-                } else if ((num1 + num2 + num3 + num4 + num5) < (num6 + num7 + num8 + num9 + num10))
+
+                }
+                else if ((num1 + num2 + num3 + num4 + num5) < (num6 + num7 + num8 + num9 + num10))
                 {
                     label13.Text = "Player 2 wins!";
-                } else
+                }
+                else
                 {
                     label13.Text = "Tie!";
                 }
 
-               // var manager = new ClashManager();
-               // manager.Create(Clash);
+                // var manager = new ClashManager();
+                // manager.Create(Clash);
 
             }
             else

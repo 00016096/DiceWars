@@ -1,36 +1,28 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using DiceWars.DAL.Entities;
+using System.Configuration;
 using System.Data;
 using System.Data.SQLite;
-using System.Security.Cryptography.X509Certificates;
-using System.Windows.Forms;
-using DiceWars.DAL.Entities;
 
 namespace DiceWars.DAL
 {
     public partial class PlayerManager : DbManager
     {
-        public void Create(Player p)
+        public async Task CreateAsync(Player p)
         {
             using var connection = Connection;
             try
             {
-                
+
                 var sql = $"INSERT INTO pl_player_16096 (pl_name_16096" +
                     $", pl_is_pvp_enabled_16096" +
-                    $", pl_last_game_date_16096" +
                     $", pl_score_16096)" +
                     $" VALUES ('{p.Name}'" +
                     $", '{Convert.ToInt32(p.IsPvPEnabled)}'" +
-                    $", '{new DateTime(2000, 01, 01).Ticks}'" +
                     $", '{0}')";
 
                 using var command = new SQLiteCommand(sql, connection);
-                connection.Open();
-                command.ExecuteNonQuery();
+                await connection.OpenAsync();
+                await command.ExecuteNonQueryAsync();
             }
             catch (Exception ex)
             {
@@ -39,11 +31,11 @@ namespace DiceWars.DAL
             finally
             {
                 if (connection.State != ConnectionState.Closed)
-                    connection.Close();
+                    await connection.CloseAsync();
             }
         }
 
-        public void Update(Player p)
+        public async Task UpdateAsync(Player p)
         {
             using var connection = Connection;
             try
@@ -54,29 +46,24 @@ namespace DiceWars.DAL
                     $" WHERE pl_id_16096 = '{p.Id}'";
 
                 using var command = new SQLiteCommand(sql, connection);
-                connection.Open();
-                command.ExecuteNonQuery();
+                await connection.OpenAsync();
+                await command.ExecuteNonQueryAsync();
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
-            finally
-            {
-                if (connection.State != ConnectionState.Closed)
-                    connection.Close();
-            }
         }
 
-        public void Delete(int id)
+        public async Task DeleteAsync(int id)
         {
             using var connection = Connection;
             try
             {
                 var sql = $"DELETE FROM pl_player_16096 WHERE pl_id_16096 = {id}";
                 using var command = new SQLiteCommand(sql, connection);
-                connection.Open();
-                command.ExecuteNonQuery();
+                await connection.OpenAsync();
+                await command.ExecuteNonQueryAsync();
             }
             catch (Exception ex)
             {
@@ -85,15 +72,15 @@ namespace DiceWars.DAL
             finally
             {
                 if (connection.State != ConnectionState.Closed)
-                    connection.Close();
+                    await connection.CloseAsync();
             }
         }
 
 
 
-        public List<Player> GetAll()
+        public async Task<List<Player>> GetAllAsync()
         {
-            
+            var connectionString = ConfigurationManager.ConnectionStrings["DiceWars"].ConnectionString;
             using var connection = Connection;
             var result = new List<Player>();
             try
@@ -105,16 +92,17 @@ namespace DiceWars.DAL
                     ",pl_score_16096 " +
                     "FROM pl_player_16096";
                 using var command = new SQLiteCommand(sql, connection);
-                connection.Open();
-                using var reader = command.ExecuteReader();
-                while (reader.Read())
+                await connection.OpenAsync();
+                using var reader = await command.ExecuteReaderAsync();
+                while (await reader.ReadAsync())
                 {
+                    var lastGameDate = reader.GetValue(3);
                     var p = new Player
                     {
                         Id = Convert.ToInt32(reader.GetValue(0)),
                         Name = Convert.ToString(reader.GetValue(1)),
                         IsPvPEnabled = Convert.ToBoolean(reader.GetValue(2)),
-                        LastGameDate = new DateTime(Convert.ToInt64(reader.GetValue(3))),
+                        LastGameDate = lastGameDate is DBNull ? null : new DateTime(Convert.ToInt64(lastGameDate)),
                         Score = Convert.ToInt32(reader.GetValue(4))
 
                     };
@@ -128,13 +116,13 @@ namespace DiceWars.DAL
             finally
             {
                 if (connection.State != ConnectionState.Closed)
-                    connection.Close();
+                    await connection.CloseAsync();
             }
 
             return result;
         }
 
-        public Player GetById(int id)
+        public async Task<Player> GetByIdAsync(int id)
         {
             using var connection = Connection;
             try
@@ -147,9 +135,9 @@ namespace DiceWars.DAL
                     "FROM pl_player_16096" +
                     $"WHERE Id = {id}";
                 using var command = new SQLiteCommand(sql, connection);
-                connection.Open();
-                using var reader = command.ExecuteReader();
-                if (reader.Read())
+                await connection.OpenAsync();
+                using var reader = await command.ExecuteReaderAsync();
+                if (await reader.ReadAsync())
                 {
                     return new Player
                     {
@@ -168,10 +156,10 @@ namespace DiceWars.DAL
             finally
             {
                 if (connection.State != ConnectionState.Closed)
-                    connection.Close();
+                    await connection.CloseAsync();
             }
 
-            return null;
+            return null!;
         }
 
     }

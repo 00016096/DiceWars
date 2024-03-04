@@ -1,4 +1,5 @@
 ﻿using DiceWars.DAL;
+using DiceWars.DAL.Entities;
 using Microsoft.VisualBasic.Devices;
 using System;
 using System.Collections.Generic;

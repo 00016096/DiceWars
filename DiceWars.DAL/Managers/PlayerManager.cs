@@ -43,9 +43,11 @@ namespace DiceWars.DAL
             using var connection = Connection;
             try
             {
-                var sql = $"UPDATE pl_player_16096" +
-                    $" SET pl_name_16096 = '{p.Name}'" +
-                    $", pl_is_pvp_enabled_16096 = '{Convert.ToInt32(p.IsPvPEnabled)}'" +
+                var lastGameDate = p.LastGameDate is null ? "NULL" : p.LastGameDate.Value.Ticks.ToString();
+                var sql = $"UPDATE pl_player_16096 " +
+                    $"SET pl_name_16096 = '{p.Name}', " +
+                    $"pl_is_pvp_enabled_16096 = '{Convert.ToInt32(p.IsPvPEnabled)}', " +
+                    $"pl_last_game_date_16096 = {lastGameDate}" +
                     $" WHERE pl_id_16096 = '{p.Id}'";
 
                 using var command = new SQLiteCommand(sql, connection);
@@ -63,6 +65,15 @@ namespace DiceWars.DAL
             using var connection = Connection;
             try
             {
+                var player = await GetByIdAsync(id);
+                if (player is null)
+                {
+                    throw new Exception("Player is not found.");
+                }
+                else if (player.LastGameDate is not null)
+                {
+                    throw new Exception("This player has other dependent relations. So, cannot be deleted.");
+                }
                 var sql = $"DELETE FROM pl_player_16096 WHERE pl_id_16096 = {id}";
                 using var command = new SQLiteCommand(sql, connection);
                 await connection.OpenAsync();
@@ -142,12 +153,13 @@ namespace DiceWars.DAL
                 using var reader = await command.ExecuteReaderAsync();
                 if (await reader.ReadAsync())
                 {
+                    var lastGameDate = reader.GetValue(3);
                     return new Player
                     {
                         Id = Convert.ToInt32(reader.GetValue(0)),
                         Name = Convert.ToString(reader.GetValue(1))!,
                         IsPvPEnabled = Convert.ToBoolean(reader.GetValue(2)),
-                        LastGameDate = new DateTime(Convert.ToInt64(reader.GetValue(3))),
+                        LastGameDate = lastGameDate is DBNull ? null : new DateTime(Convert.ToInt64(lastGameDate)),
                         Score = Convert.ToInt32(reader.GetValue(4))
                     };
                 }

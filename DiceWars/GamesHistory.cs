@@ -24,8 +24,8 @@ public partial class GamesHistory : Form
             .Select(async x => new
             {
                 GameId = x.Id,
-                FirstPlayerName = (await playerManager.GetByIdAsync(x.FirstPlayer!.Id)).Name,
-                SecondPlayerName = (await playerManager.GetByIdAsync(x.SecondPlayer!.Id)).Name,
+                FirstPlayerName = (await playerManager.GetByIdAsync(x.FirstPlayer!.Id))?.Name,
+                SecondPlayerName = (await playerManager.GetByIdAsync(x.SecondPlayer!.Id))?.Name,
                 GameDate = x.Date,
                 Outcome = x.Outcome == 1 ? "First Player won" : x.Outcome == 2 ? "Second Player won" : "Tie"
             }).Select(x => x.Result).ToList();
@@ -40,12 +40,4 @@ public partial class GamesHistory : Form
     {
         LoadData();
     }
-}
-public class ClashDto
-{
-    public int GameId { get; set; }
-    public string FirstPlayerName { get; set; }
-    public string SecondPlayerName { get; set; }
-    public DateTime GameDate { get; set; }
-    public string Outcome { get; set; }
 }

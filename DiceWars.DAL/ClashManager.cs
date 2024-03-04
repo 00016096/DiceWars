@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Data;
 using System.Data.SQLite;
 using System.Windows.Forms;
+using DiceWars.DAL.Entities;
 
 
 namespace DiceWars.DAL

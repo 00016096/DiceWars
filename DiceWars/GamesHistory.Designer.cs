@@ -1,4 +1,6 @@
-﻿namespace DiceWars
+﻿using DiceWars.DAL.Entities;
+
+namespace DiceWars
 {
     partial class GamesHistory
     {

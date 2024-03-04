@@ -37,8 +37,6 @@ namespace DiceWars
             clashBindingSource = new BindingSource(components);
             dataGridView1 = new DataGridView();
             idDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
-            player1DataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
-            player2DataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
             dateDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
             outcomeDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)playerBindingSource1).BeginInit();
@@ -74,13 +72,14 @@ namespace DiceWars
             dataGridView1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             dataGridView1.AutoGenerateColumns = false;
             dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Columns.AddRange(new DataGridViewColumn[] { idDataGridViewTextBoxColumn, player1DataGridViewTextBoxColumn, player2DataGridViewTextBoxColumn, dateDataGridViewTextBoxColumn, outcomeDataGridViewTextBoxColumn });
+            dataGridView1.Columns.AddRange(new DataGridViewColumn[] { idDataGridViewTextBoxColumn, dateDataGridViewTextBoxColumn, outcomeDataGridViewTextBoxColumn });
             dataGridView1.DataSource = clashBindingSource;
             dataGridView1.Location = new Point(12, 12);
             dataGridView1.Name = "dataGridView1";
             dataGridView1.RowHeadersWidth = 51;
-            dataGridView1.Size = new Size(620, 456);
+            dataGridView1.Size = new Size(620, 435);
             dataGridView1.TabIndex = 7;
+            dataGridView1.CellContentClick += dataGridView1_CellContentClick;
             // 
             // idDataGridViewTextBoxColumn
             // 
@@ -89,22 +88,6 @@ namespace DiceWars
             idDataGridViewTextBoxColumn.MinimumWidth = 6;
             idDataGridViewTextBoxColumn.Name = "idDataGridViewTextBoxColumn";
             idDataGridViewTextBoxColumn.Width = 125;
-            // 
-            // player1DataGridViewTextBoxColumn
-            // 
-            player1DataGridViewTextBoxColumn.DataPropertyName = "Player1";
-            player1DataGridViewTextBoxColumn.HeaderText = "Player1";
-            player1DataGridViewTextBoxColumn.MinimumWidth = 6;
-            player1DataGridViewTextBoxColumn.Name = "player1DataGridViewTextBoxColumn";
-            player1DataGridViewTextBoxColumn.Width = 125;
-            // 
-            // player2DataGridViewTextBoxColumn
-            // 
-            player2DataGridViewTextBoxColumn.DataPropertyName = "Player2";
-            player2DataGridViewTextBoxColumn.HeaderText = "Player2";
-            player2DataGridViewTextBoxColumn.MinimumWidth = 6;
-            player2DataGridViewTextBoxColumn.Name = "player2DataGridViewTextBoxColumn";
-            player2DataGridViewTextBoxColumn.Width = 125;
             // 
             // dateDataGridViewTextBoxColumn
             // 

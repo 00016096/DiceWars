@@ -69,6 +69,7 @@ namespace DiceWars
             dgv.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dgv.Size = new Size(562, 338);
             dgv.TabIndex = 0;
+            dgv.CellContentClick += dgv_CellContentClick;
             // 
             // idDataGridViewTextBoxColumn
             // 

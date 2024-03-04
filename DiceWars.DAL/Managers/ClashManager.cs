@@ -16,10 +16,10 @@ public class ClashManager : DbManager
                 $", cl_player2_16096" +
                 $", cl_date_16096" +
                 $", cl_outcome_16096) " +
-                $"VALUES ('{c.Player1}'" +
-                $", {c.Player2}" +
-                $", {DateTime.Today}" +
-                $", {c.Outcome})";
+                $"VALUES ({c.FirstPlayer!.Id}, " +
+                $"{c.SecondPlayer!.Id}, " +
+                $"{c.Date.Ticks}, " +
+                $"{c.Outcome})";
 
             using var command = new SQLiteCommand(sql, connection);
             await connection.OpenAsync();
@@ -32,7 +32,7 @@ public class ClashManager : DbManager
         finally
         {
             if (connection.State != ConnectionState.Closed)
-                await connection.OpenAsync();
+                await connection.CloseAsync();
         }
     }
 
@@ -59,8 +59,8 @@ public class ClashManager : DbManager
                 var c = new Clash
                 {
                     Id = Convert.ToInt32(reader.GetValue(0)),
-                    Player1 = allPlayers[Convert.ToInt32(reader.GetValue(1))],
-                    Player2 = allPlayers[Convert.ToInt32(reader.GetValue(2))],
+                    FirstPlayer = new(Convert.ToInt32(reader.GetValue(1))),
+                    SecondPlayer = new(Convert.ToInt32(reader.GetValue(2))),
                     Date = new DateTime(Convert.ToInt64(reader.GetValue(3))),
                     Outcome = Convert.ToInt32(reader.GetValue(4))
 
@@ -101,8 +101,8 @@ public class ClashManager : DbManager
                 return new Clash
                 {
                     Id = Convert.ToInt32(reader.GetValue(0)),
-                    Player1 = await new PlayerManager().GetByIdAsync(Convert.ToInt32(reader.GetValue(1))),
-                    Player2 = await new PlayerManager().GetByIdAsync(Convert.ToInt32(reader.GetValue(2))),
+                    FirstPlayer = new(Convert.ToInt32(reader.GetValue(1))),
+                    SecondPlayer = new(Convert.ToInt32(reader.GetValue(2))),
                     Date = new DateTime(Convert.ToInt64(reader.GetValue(3))),
                     Outcome = Convert.ToInt32(reader.GetValue(4))
                 };

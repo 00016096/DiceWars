@@ -12,7 +12,10 @@ namespace DiceWars.DAL
             using var connection = Connection;
             try
             {
-
+                if (await GetByNameAsync(p.Name) is not null)
+                {
+                    throw new Exception("Player with this username already exists. Try another name.");
+                }
                 var sql = $"INSERT INTO pl_player_16096 (pl_name_16096" +
                     $", pl_is_pvp_enabled_16096" +
                     $", pl_score_16096)" +
@@ -100,7 +103,7 @@ namespace DiceWars.DAL
                     var p = new Player
                     {
                         Id = Convert.ToInt32(reader.GetValue(0)),
-                        Name = Convert.ToString(reader.GetValue(1)),
+                        Name = reader.GetValue(1).ToString()!,
                         IsPvPEnabled = Convert.ToBoolean(reader.GetValue(2)),
                         LastGameDate = lastGameDate is DBNull ? null : new DateTime(Convert.ToInt64(lastGameDate)),
                         Score = Convert.ToInt32(reader.GetValue(4))
@@ -142,7 +145,7 @@ namespace DiceWars.DAL
                     return new Player
                     {
                         Id = Convert.ToInt32(reader.GetValue(0)),
-                        Name = Convert.ToString(reader.GetValue(1)),
+                        Name = Convert.ToString(reader.GetValue(1))!,
                         IsPvPEnabled = Convert.ToBoolean(reader.GetValue(2)),
                         LastGameDate = new DateTime(Convert.ToInt64(reader.GetValue(3))),
                         Score = Convert.ToInt32(reader.GetValue(4))
@@ -162,5 +165,44 @@ namespace DiceWars.DAL
             return null!;
         }
 
+        public async Task<Player> GetByNameAsync(string name)
+        {
+            using var connection = Connection;
+            try
+            {
+                var sql = "SELECT pl_id_16096, " +
+                    "pl_name_16096 as name, " +
+                    "pl_is_pvp_enabled_16096, " +
+                    "pl_last_game_date_16096, " +
+                    "pl_score_16096 " +
+                    "FROM pl_player_16096 " +
+                    $"WHERE name = '{name}'";
+                using var command = new SQLiteCommand(sql, connection);
+                await connection.OpenAsync();
+                using var reader = await command.ExecuteReaderAsync();
+                if (await reader.ReadAsync())
+                {
+                    return new Player
+                    {
+                        Id = Convert.ToInt32(reader.GetValue(0)),
+                        Name = Convert.ToString(reader.GetValue(1))!,
+                        IsPvPEnabled = Convert.ToBoolean(reader.GetValue(2)),
+                        LastGameDate = new DateTime(Convert.ToInt64(reader.GetValue(3))),
+                        Score = Convert.ToInt32(reader.GetValue(4))
+                    };
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            finally
+            {
+                if (connection.State != ConnectionState.Closed)
+                    await connection.CloseAsync();
+            }
+
+            return null!;
+        }
     }
 }

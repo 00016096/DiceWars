@@ -2,6 +2,14 @@
 
 public class Player
 {
+    public Player()
+    {
+        
+    }
+    public Player(int id)
+    {
+        Id = id;
+    }
     private string name;
 
     public int Id { get; set; }

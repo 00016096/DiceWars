@@ -19,7 +19,6 @@ public partial class AllPlayers : Form
     public async void LoadData()
     {
         dgv.DataSource = await new PlayerManager().GetAllAsync();
-
     }
 
     private void btnRefresh_Click(object sender, EventArgs e)
@@ -84,5 +83,10 @@ public partial class AllPlayers : Form
             LoadData();
 
         }
+    }
+
+    private void dgv_CellContentClick(object sender, DataGridViewCellEventArgs e)
+    {
+
     }
 }

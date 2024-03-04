@@ -1,16 +1,21 @@
 ﻿using DiceWars.DAL;
 using DiceWars.DAL.Entities;
+using DiceWars.DAL.Managers;
 
 namespace DiceWars
 {
     public partial class Game : Form
     {
-        public Clash Clash { get; set; }
-
+        private Clash _clash;
+        private ClashManager _clashManager;
+        private PlayerManager _playerManager;
 
         public Game()
         {
             InitializeComponent();
+            _clash = new();
+            _clashManager = new();
+            _playerManager = new();
         }
 
         private async void Game_Load(object sender, EventArgs e)
@@ -19,11 +24,10 @@ namespace DiceWars
             cbxPlayer2.DataSource = await new PlayerManager().GetAllAsync();
         }
 
-        private void btnRoll_Click(object sender, EventArgs e)
+        private async void btnRoll_Click(object sender, EventArgs e)
         {
             if (cbxPlayer1.SelectedIndex != cbxPlayer2.SelectedIndex)
             {
-                Clash = new Clash();
                 Random random = new Random();
                 label3.Text = random.Next(1, 7).ToString();
                 label4.Text = random.Next(1, 7).ToString();
@@ -51,20 +55,28 @@ namespace DiceWars
                 if ((num1 + num2 + num3 + num4 + num5) > (num6 + num7 + num8 + num9 + num10))
                 {
                     label13.Text = "Player 1 wins!";
-
+                    _clash.Date = DateTime.Now;
+                    _clash.Outcome = 1;
+                    _clash.FirstPlayer = (Player)cbxPlayer1.SelectedItem!;
+                    _clash.SecondPlayer = (Player)cbxPlayer2.SelectedItem!;
                 }
                 else if ((num1 + num2 + num3 + num4 + num5) < (num6 + num7 + num8 + num9 + num10))
                 {
                     label13.Text = "Player 2 wins!";
+                    _clash.Date = DateTime.Now;
+                    _clash.Outcome = 2;
+                    _clash.FirstPlayer = (Player)cbxPlayer1.SelectedItem!;
+                    _clash.SecondPlayer = (Player)cbxPlayer2.SelectedItem!;
                 }
                 else
                 {
                     label13.Text = "Tie!";
+                    _clash.Date = DateTime.Now;
+                    _clash.Outcome = 0;
+                    _clash.FirstPlayer = (Player)cbxPlayer1.SelectedItem!;
+                    _clash.SecondPlayer = (Player)cbxPlayer2.SelectedItem!;
                 }
-
-                // var manager = new ClashManager();
-                // manager.Create(Clash);
-
+                await _clashManager.CreateAsync(_clash);
             }
             else
             {

@@ -47,12 +47,13 @@ public partial class AllPlayers : Form
     private void btnSearch_Click(object sender, EventArgs e)
     {
         if (string.IsNullOrWhiteSpace(tbxSearch.Text))
+        {
             MessageBox.Show("Provide the search term");
+        }
         else
         {
             dgv.DataSource = new PlayerManager().SearchAsync(ByAttribute.Name, tbxSearch.Text);
         }
-
     }
 
     private void btnAdd_Click(object sender, EventArgs e)
@@ -63,30 +64,31 @@ public partial class AllPlayers : Form
     private void btnEdit_Click(object sender, EventArgs e)
     {
         if (dgv.SelectedRows.Count == 0)
+        {
             MessageBox.Show("Please select a course");
+        }
         else
         {
             var c = (Player)dgv.SelectedRows[0].DataBoundItem;
             new EditingPlayers().UpdatePlayer(c);
         }
-
     }
 
     private async void btnDelete_Click(object sender, EventArgs e)
     {
         if (dgv.SelectedRows.Count == 0)
+        {
             MessageBox.Show("Please select a course");
+        }
         else
         {
             var c = (Player)dgv.SelectedRows[0].DataBoundItem;
             await new PlayerManager().DeleteAsync(c.Id);
             LoadData();
-
         }
     }
 
     private void dgv_CellContentClick(object sender, DataGridViewCellEventArgs e)
     {
-
     }
 }

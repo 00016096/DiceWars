@@ -130,13 +130,13 @@ namespace DiceWars.DAL
             using var connection = Connection;
             try
             {
-                var sql = "SELECT pl_id_16096" +
-                    ",pl_name_16096," +
-                    "pl_is_pvp_enabled_16096" +
-                    ",pl_last_game_date_16096" +
-                    ",pl_score_16096 " +
-                    "FROM pl_player_16096" +
-                    $"WHERE Id = {id}";
+                var sql = "SELECT pl_id_16096 as id, " +
+                    "pl_name_16096, " +
+                    "pl_is_pvp_enabled_16096, " +
+                    "pl_last_game_date_16096, " +
+                    "pl_score_16096 " +
+                    "FROM pl_player_16096 " +
+                    $"WHERE id = {id}";
                 using var command = new SQLiteCommand(sql, connection);
                 await connection.OpenAsync();
                 using var reader = await command.ExecuteReaderAsync();

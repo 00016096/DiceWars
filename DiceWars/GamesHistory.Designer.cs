@@ -36,9 +36,11 @@ namespace DiceWars
             btnRefresh = new Button();
             clashBindingSource = new BindingSource(components);
             dataGridView1 = new DataGridView();
-            idDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
-            dateDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
+            GameId = new DataGridViewTextBoxColumn();
+            FirstPlayerName = new DataGridViewTextBoxColumn();
+            SecondPlayerName = new DataGridViewTextBoxColumn();
             outcomeDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
+            GameDate = new DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)playerBindingSource1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)playerBindingSource).BeginInit();
             ((System.ComponentModel.ISupportInitialize)clashBindingSource).BeginInit();
@@ -56,12 +58,13 @@ namespace DiceWars
             // btnRefresh
             // 
             btnRefresh.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            btnRefresh.Location = new Point(656, 12);
+            btnRefresh.Location = new Point(723, 12);
             btnRefresh.Name = "btnRefresh";
             btnRefresh.Size = new Size(119, 50);
             btnRefresh.TabIndex = 6;
             btnRefresh.Text = "Refresh";
             btnRefresh.UseVisualStyleBackColor = true;
+            btnRefresh.Click += btnRefresh_Click;
             // 
             // clashBindingSource
             // 
@@ -72,30 +75,38 @@ namespace DiceWars
             dataGridView1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             dataGridView1.AutoGenerateColumns = false;
             dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Columns.AddRange(new DataGridViewColumn[] { idDataGridViewTextBoxColumn, dateDataGridViewTextBoxColumn, outcomeDataGridViewTextBoxColumn });
+            dataGridView1.Columns.AddRange(new DataGridViewColumn[] { GameId, FirstPlayerName, SecondPlayerName, outcomeDataGridViewTextBoxColumn, GameDate });
             dataGridView1.DataSource = clashBindingSource;
             dataGridView1.Location = new Point(12, 12);
             dataGridView1.Name = "dataGridView1";
             dataGridView1.RowHeadersWidth = 51;
-            dataGridView1.Size = new Size(620, 435);
+            dataGridView1.Size = new Size(687, 435);
             dataGridView1.TabIndex = 7;
             dataGridView1.CellContentClick += dataGridView1_CellContentClick;
             // 
-            // idDataGridViewTextBoxColumn
+            // GameId
             // 
-            idDataGridViewTextBoxColumn.DataPropertyName = "Id";
-            idDataGridViewTextBoxColumn.HeaderText = "Id";
-            idDataGridViewTextBoxColumn.MinimumWidth = 6;
-            idDataGridViewTextBoxColumn.Name = "idDataGridViewTextBoxColumn";
-            idDataGridViewTextBoxColumn.Width = 125;
+            GameId.DataPropertyName = "GameId";
+            GameId.HeaderText = "GameId";
+            GameId.MinimumWidth = 6;
+            GameId.Name = "GameId";
+            GameId.Width = 125;
             // 
-            // dateDataGridViewTextBoxColumn
+            // FirstPlayerName
             // 
-            dateDataGridViewTextBoxColumn.DataPropertyName = "Date";
-            dateDataGridViewTextBoxColumn.HeaderText = "Date";
-            dateDataGridViewTextBoxColumn.MinimumWidth = 6;
-            dateDataGridViewTextBoxColumn.Name = "dateDataGridViewTextBoxColumn";
-            dateDataGridViewTextBoxColumn.Width = 125;
+            FirstPlayerName.DataPropertyName = "FirstPlayerName";
+            FirstPlayerName.HeaderText = "First Player Name";
+            FirstPlayerName.MinimumWidth = 6;
+            FirstPlayerName.Name = "FirstPlayerName";
+            FirstPlayerName.Width = 125;
+            // 
+            // SecondPlayerName
+            // 
+            SecondPlayerName.DataPropertyName = "SecondPlayerName";
+            SecondPlayerName.HeaderText = "Second Player Name";
+            SecondPlayerName.MinimumWidth = 6;
+            SecondPlayerName.Name = "SecondPlayerName";
+            SecondPlayerName.Width = 125;
             // 
             // outcomeDataGridViewTextBoxColumn
             // 
@@ -105,11 +116,19 @@ namespace DiceWars
             outcomeDataGridViewTextBoxColumn.Name = "outcomeDataGridViewTextBoxColumn";
             outcomeDataGridViewTextBoxColumn.Width = 125;
             // 
+            // GameDate
+            // 
+            GameDate.DataPropertyName = "GameDate";
+            GameDate.HeaderText = "GameDate";
+            GameDate.MinimumWidth = 6;
+            GameDate.Name = "GameDate";
+            GameDate.Width = 125;
+            // 
             // GamesHistory
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(826, 480);
+            ClientSize = new Size(893, 480);
             Controls.Add(dataGridView1);
             Controls.Add(btnRefresh);
             Name = "GamesHistory";
@@ -128,10 +147,14 @@ namespace DiceWars
         private Button btnRefresh;
         private BindingSource clashBindingSource;
         private DataGridView dataGridView1;
-        private DataGridViewTextBoxColumn idDataGridViewTextBoxColumn;
         private DataGridViewTextBoxColumn player1DataGridViewTextBoxColumn;
         private DataGridViewTextBoxColumn player2DataGridViewTextBoxColumn;
+        private DataGridViewTextBoxColumn idDataGridViewTextBoxColumn;
         private DataGridViewTextBoxColumn dateDataGridViewTextBoxColumn;
+        private DataGridViewTextBoxColumn GameId;
+        private DataGridViewTextBoxColumn FirstPlayerName;
+        private DataGridViewTextBoxColumn SecondPlayerName;
         private DataGridViewTextBoxColumn outcomeDataGridViewTextBoxColumn;
+        private DataGridViewTextBoxColumn GameDate;
     }
 }

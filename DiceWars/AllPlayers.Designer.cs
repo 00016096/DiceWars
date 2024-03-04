@@ -67,7 +67,7 @@ namespace DiceWars
             dgv.ReadOnly = true;
             dgv.RowHeadersWidth = 51;
             dgv.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dgv.Size = new Size(562, 338);
+            dgv.Size = new Size(681, 338);
             dgv.TabIndex = 0;
             dgv.CellContentClick += dgv_CellContentClick;
             // 
@@ -167,7 +167,7 @@ namespace DiceWars
             // btnAdd
             // 
             btnAdd.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            btnAdd.Location = new Point(595, 4);
+            btnAdd.Location = new Point(714, 4);
             btnAdd.Name = "btnAdd";
             btnAdd.Size = new Size(119, 51);
             btnAdd.TabIndex = 2;
@@ -178,7 +178,7 @@ namespace DiceWars
             // btnEdit
             // 
             btnEdit.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            btnEdit.Location = new Point(595, 61);
+            btnEdit.Location = new Point(714, 61);
             btnEdit.Name = "btnEdit";
             btnEdit.Size = new Size(119, 49);
             btnEdit.TabIndex = 2;
@@ -189,7 +189,7 @@ namespace DiceWars
             // btnDelete
             // 
             btnDelete.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            btnDelete.Location = new Point(595, 116);
+            btnDelete.Location = new Point(714, 116);
             btnDelete.Name = "btnDelete";
             btnDelete.Size = new Size(119, 49);
             btnDelete.TabIndex = 2;
@@ -200,7 +200,7 @@ namespace DiceWars
             // btnRefresh
             // 
             btnRefresh.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            btnRefresh.Location = new Point(595, 171);
+            btnRefresh.Location = new Point(714, 171);
             btnRefresh.Name = "btnRefresh";
             btnRefresh.Size = new Size(119, 50);
             btnRefresh.TabIndex = 2;
@@ -212,7 +212,7 @@ namespace DiceWars
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(773, 482);
+            ClientSize = new Size(892, 482);
             Controls.Add(tbxSearch);
             Controls.Add(btnRefresh);
             Controls.Add(btnDelete);
